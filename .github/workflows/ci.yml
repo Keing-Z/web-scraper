@@ -12,11 +12,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ['3.9', '3.11', '3.13']
+        # 3.9 在 ubuntu-latest(26.04) 上已没有预装包，从 3.10 起测
+        python: ['3.10', '3.12', '3.13']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
+      - name: Syntax check
+        run: python -m compileall -q csv_scraper.py test_scraper.py
       - name: Unit tests (standard library only, no install step)
-        run: python -m unittest discover -v
+        run: python test_scraper.py
