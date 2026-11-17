@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+out.csv
+.DS_Store
+Thumbs.db
